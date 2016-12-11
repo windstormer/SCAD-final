@@ -7,7 +7,9 @@ $compilerId = "11";
 $userId = "";
 
 	// Post Submission
-	header('Access-Control-Allow-Origin: *');  
+	header('Access-Control-Allow-Origin: http://heyou.tw');
+header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
+header('Access-Control-Allow-Headers: X-Requested-With, Content-Type, Accept'); 
 	$ch = curl_init("http://www.ghostisland.com.tw/picwar/?keyword=".$tag."&page=1");
 	curl_setopt($ch, CURLOPT_POST, TRUE);
 	curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-Type: application/json"));

@@ -2,9 +2,20 @@
 function search()
 {
 	var tag = document.getElementById("input").value;
-	$.get("140.114.206.88",function(data){
-		//data = 圖戰網html
-	});
+var jsontree = [];
+$.ajax({
+    url: "http://coldegarage.tech/~demo1/curl.php",
+    type: "GET",
+    dataType: 'JSONP',
+    success: function(result){
+    	alert("success");
+        jsontree = result;
+    },
+    error:function(){
+        alert('fail');
+    }
+});
+
 
 	
 
