@@ -2,12 +2,13 @@
 $token = "12d373694649e2e696c52a5cf453f7e1e6dafd25";
 $problemCode = $_POST['qid'];
 $source = $_POST['code'];
+$tag = $_GET['tag'];
 $compilerId = "11";
 $userId = "";
 
 	// Post Submission
 	header('Access-Control-Allow-Origin: *');  
-	$ch = curl_init("http://problems.sphere-engine.com/api/v3/submissions?access_token=".$token);
+	$ch = curl_init("http://www.ghostisland.com.tw/picwar/?keyword=".$tag."&page=1");
 	curl_setopt($ch, CURLOPT_POST, TRUE);
 	curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-Type: application/json"));
 	curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode(array(
@@ -22,8 +23,8 @@ $userId = "";
 		echo curl_errno($ch);
 	}
 	curl_close($ch);
-
-
+	echo $result;
+/*
 
 	$result=json_decode($result, true);
 	$id = $result['id'];
@@ -63,3 +64,5 @@ $userId = "";
 	else{
 		echo "false";
 	}
+*/
+	?>
