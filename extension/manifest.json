@@ -1,0 +1,31 @@
+{
+  "manifest_version": 2,
+  "name": "searchongoog",
+  "description": "test",
+  "version": "1.0",
+  "permissions": [ "tabs",
+    "https://*/*",
+    "http://*/*",
+    "activeTab"
+  ],
+
+  "background":{
+    "persistent":false,
+    "scripts":["background.js"]
+    //"page":"background.html"
+  },
+
+
+  "browser_action": {
+    "default_icon": "comic-city-with-silhouettes-of-buildings_23-2147567997.png"
+  }
+  
+  //"content_scripts":[
+  //  {
+  //    "matches":["https://*/*","http://*/*"],
+  //    "js":["background.js"]
+  //  }
+  //]
+
+
+}
