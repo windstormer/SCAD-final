@@ -24,12 +24,14 @@ popup.appendChild(button);
 
 
 
-function check(){
+function check(event){
   if(popup.style.visibility === 'hidden'){
     popup.style.visibility = 'visible';
   } else {
     popup.style.visibility = 'hidden';
   }
+  console.log(event.target.parentElement.parentElement);
+
 }
 
 var list = document.getElementsByClassName("UFICommentAttachmentButtons");
@@ -58,7 +60,7 @@ function search()
 
 var jsontree = null;
 $.ajax({
-    url: "//coldegarage.tech/~demo1/curl.php",
+    url: "https://coldegarage.tech/~demo1/curl.php",
     //url: "http://140.114.206.88/curl.php",
     type: "GET",
     data:{
@@ -93,7 +95,7 @@ function display(jsontree)
   {
   var img = document.createElement('img');
   img.src = images[i]["src"];
-  $(".popup").append(img);
+  $(".image_box").append(img);
   }
   
 
