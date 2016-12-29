@@ -17,7 +17,7 @@
 
 
   "browser_action": {
-    "default_icon": "comic-city-with-silhouettes-of-buildings_23-2147567997.png"
+    "default_icon": "search.png"
   }
   
   // "content_scripts":[

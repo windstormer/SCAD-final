@@ -63,11 +63,15 @@ popup.style.visibility="hidden";
 var keyword = document.createElement("input");
 keyword.id="input";
 keyword.className = "form-control";
+// keyword.style.position = "fixed";
+// keyword.style.left = "30%";
+// keyword.style.top = "30%";
+
 var button = document.createElement("button");
 button.className = "btn btn-primary btn-sm";
 button.onclick = search;
-button.innerHTML = "Go!"
-var close = document.createElement("button")
+button.innerHTML = "GO"
+var close = document.createElement("button");
 close.className = "close";
 close.setAttribute("data-dismiss","modal");
 close.onclick = check;
@@ -75,9 +79,9 @@ close.innerHTML = '&times;';
 popup.appendChild(close);
 popup.appendChild(keyword);
 popup.appendChild(button);
- console.log(popup);
+// console.log(popup);
 
-
+var cur_place;
 
 
 function check(event){
@@ -89,12 +93,15 @@ function check(event){
     }
   if(popup.style.visibility === 'hidden'){
     popup.style.visibility = 'visible';
+    popup.style.overflowY = 'scroll';
     document.getElementById("mainContainer").style.webkitFilter = "blur(10px)";
   } else {
     popup.style.visibility = 'hidden';
+    popup.style.overflowY = 'hidden';
     document.getElementById("mainContainer").style.webkitFilter = "blur(0px)";
+    $(".img-rounded").attr("src","")
   }
-    console.log(event.target.parentElement.parentElement);
+  cur_place = event.target.parentElement.parentElement;
 }
 
 var list = document.getElementsByClassName("UFICommentAttachmentButtons");
@@ -103,8 +110,8 @@ var list = document.getElementsByClassName("UFICommentAttachmentButtons");
 for(var i =0 ;i<list.length;i++)
 {
   var output = document.createElement("button");
-  output.innerHTML = "test";
-  output.className = "picture_talk";
+  output.innerHTML = "PIC";
+  output.className = "picture_talk btn-info";
   // output.setAttribute("data-toggle","modal");
   // output.setAttribute("data-target","#myModal");
   if(list[i].childNodes.length==2)  //prevent from append more than one time
@@ -123,11 +130,18 @@ function search()
 {
   var tag = document.getElementById("input").value;
   console.log(tag);
+  // console.log(cur_place.children[0].children[1].children[0].children[0].children[1].children[0].children[0].children[0].children[0].children[0].innerHTML);
+  var sep=cur_place.children[0].children[1].children[0].children[0];
+  //sep.children[0].className="_1p1t _1p1u";
+  sep.removeChild(sep.children[0]);
+  console.log(sep);
+  sep.children[0].children[0].removeAttribute("aria-describedby");
+    sep.children[0].children[0].children[0].children[0].children[0].children[0].innerHTML
+    ="<span data-text=\"true\">"+123+"</span>";
 
 var jsontree = null;
 $.ajax({
     url: "https://coldegarage.tech/~demo1/curl.php",
-    //url: "http://140.114.206.88/curl.php",
     type: "GET",
     data:{
       "tag":tag
@@ -135,7 +149,6 @@ $.ajax({
     dataType: 'JSON',
     success: function(result){
         jsontree = result;
-        //console.log(jsontree);
         display(jsontree);
     },
     error:function(){
@@ -160,12 +173,11 @@ function display(jsontree)
   for(var i =0; i < images.length; i++)
   {
   var img = document.createElement('img');
+  img.className = "img-rounded";
   img.src = images[i]["src"];
   $(".image_box").append(img);
   }
   
-
-  //parse json
 }else
   alert("No result");
 
