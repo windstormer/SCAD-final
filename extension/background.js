@@ -16,9 +16,9 @@ chrome.browserAction.onClicked.addListener(function(tab) {
   chrome.tabs.executeScript({
         file: 'js/bootstrap.min.js'
   	});
-  // chrome.tabs.insertCSS(null, {
-  // 	file: "css/bootstrap.css"
-  // 	});
+  chrome.tabs.executeScript({
+        file: 'clipboard.min.js'
+    });
   // chrome.tabs.insertCSS(null, {
   // 	file: "css/bootstrap.min.css"
   // 	});

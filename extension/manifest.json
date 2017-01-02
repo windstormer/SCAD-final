@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
-  "name": "searchongoog",
-  "description": "test",
+  "name": "臉書來圖戰",
+  "description": "Facebook 梗圖快速搜尋、回覆",
   "version": "1.0",
   "permissions": [ "tabs",
     "https://*/*",

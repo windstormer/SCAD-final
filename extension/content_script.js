@@ -5,181 +5,158 @@ console.log("test");
 
 var popup = document.createElement("div");
 popup.className = "image_box";
-popup.style.visibility="hidden";
+popup.style.visibility = "hidden";
 
-// popup.className = "modal fade";
-// popup.id = "myModal";
-// popup.setAttribute("role","dialog");
-// var dialog = document.createElement("div");
-// dialog.className = "modal-dialog";
-// var content = document.createElement("div");
-// content.className = "modal-content";
 
-// var header_1 = document.createElement("div");
-// header_1.className = "modal-header";
-// var close = document.createElement("button")
-// close.className = "close";
-// close.setAttribute("data-dismiss","modal");
-// close.onclick = check;
-// close.innerHTML = '&times;';
-// var title = document.createElement("h4");
-// title.className = "modal-title";
-// title.innerHTML = "Modal Header";
-// header_1.appendChild(close);
-// header_1.appendChild(title);
-
-// var body = document.createElement("div");
-// body.className = "modal-body";
-// var text = document.createElement("p");
-// text.innerHTML = "Some text in the modal";
-// body.appendChild(text);
-
-// var footer = document.createElement("div");
-// footer.className = "modal-footer";
-
-// content.appendChild(header_1);
-// content.appendChild(body);
-// content.appendChild(footer);
-
-// dialog.appendChild(content);
-// popup.appendChild(dialog)
-
- // popup.style.top = "10%";
- // popup.style.left = "25%";
- // popup.style.position = "fixed";
- // popup.style.height = "50%";
- // popup.style.width = "50%";
- // popup.style.zIndex = "999";
- // popup.style.backgroundColor = "blue";
- // popup.style.visibility = "hidden";
-
- //popup.innerHTML = '  <div class="modal fade" id="myModal" role="dialog"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title">Modal Header</h4></div><div class="modal-body"><p>Some text in the modal.</p></div><div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal">Close</button></div></div></div></div>';
-// modal_temp = document.createElement("div");
-// modal_temp.className = "modal fade";
-// modal_temp.id = "myModal";
-// modal_temp.setAttribute("role","dialog");
-// modal_temp.innerHTML = '<div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button><h4 class="modal-title">Modal Header</h4></div><div class="modal-body"><p>Some text in the modal.</p></div><div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal">Close</button></div></div></div>';
 
 var keyword = document.createElement("input");
-keyword.id="input";
+keyword.id = "input";
 keyword.className = "form-control";
-// keyword.style.position = "fixed";
-// keyword.style.left = "30%";
-// keyword.style.top = "30%";
-
+keyword.setAttribute("placeholder","Search picture from 鄉民來圖戰")
+keyword.addEventListener('keypress', function (e) {
+    var key = e.which || e.keyCode;
+    if (key === 13) { // 13 is enter
+      // code for enter
+      search();
+    }
+});
+var title = document.createElement("div");
+top.className = "title";
 var button = document.createElement("button");
 button.className = "btn btn-primary btn-sm";
 button.onclick = search;
 button.innerHTML = "GO"
+
 var close = document.createElement("button");
 close.className = "close";
-close.setAttribute("data-dismiss","modal");
+close.setAttribute("data-dismiss", "modal");
 close.onclick = check;
 close.innerHTML = '&times;';
-popup.appendChild(close);
-popup.appendChild(keyword);
-popup.appendChild(button);
+title.appendChild(close);
+title.appendChild(keyword);
+title.appendChild(button);
+var pic_list = document.createElement("div");
+pic_list.className = "pic_list";
+popup.appendChild(title)
+popup.appendChild(pic_list);
 // console.log(popup);
 
 var cur_place;
 
 
-function check(event){
-    var ss = document.getElementsByClassName("_1osa mentionsHidden");
-      
-  for(var i = 0; i<ss.length;i++)
-    {
-      ss[i].focus();
-    }
-  if(popup.style.visibility === 'hidden'){
-    popup.style.visibility = 'visible';
-    popup.style.overflowY = 'scroll';
-    document.getElementById("mainContainer").style.webkitFilter = "blur(10px)";
-  } else {
-    popup.style.visibility = 'hidden';
-    popup.style.overflowY = 'hidden';
-    document.getElementById("mainContainer").style.webkitFilter = "blur(0px)";
-    $(".img-rounded").attr("src","")
-  }
-  cur_place = event.target.parentElement.parentElement;
-}
+function check() {
+	var ss = document.getElementsByClassName("_1osa mentionsHidden");
 
-var list = document.getElementsByClassName("UFICommentAttachmentButtons");
+	for (var i = 0; i < ss.length; i++) {
+		ss[i].focus();
+	}
+	if (popup.style.visibility === 'hidden') {
+		popup.style.visibility = 'visible';
+		popup.style.overflowY = 'scroll';
+		document.getElementById("mainContainer").style.webkitFilter = "blur(10px)";
+	} else {
+		popup.style.visibility = 'hidden';
+		popup.style.overflowY = 'hidden';
+		document.getElementById("mainContainer").style.webkitFilter = "blur(0px)";
+		// $(".pic_list")[0].innerHTML = "";
+		// var myNode = document.getElementsByClassName("image_box")[0];
+	 //    while (myNode.firstChild) {
+	 //      myNode.removeChild(myNode.firstChild);
+	 //    }
+	 //    myNode.appendChild(close);
+	 //    myNode.appendChild(keyword);
+	 //    myNode.appendChild(button);
 
-
-for(var i =0 ;i<list.length;i++)
-{
-  var output = document.createElement("button");
-  output.innerHTML = "PIC";
-  output.className = "picture_talk btn-info";
-  // output.setAttribute("data-toggle","modal");
-  // output.setAttribute("data-target","#myModal");
-  if(list[i].childNodes.length==2)  //prevent from append more than one time
-    list[i].appendChild(output);
+	}
 }
 
 $("body").append(popup);
+var clipboard;
+function addButton() {
+	var list = document.getElementsByClassName("UFICommentAttachmentButtons");
 
-input = document.getElementsByClassName("picture_talk");
-for (var i = input.length - 1; i >= 0; i--) {
-	input[i].onclick = check;
+
+	for (var i = 0; i < list.length; i++) {
+		var output = document.createElement("button");
+		output.innerHTML = "PIC";
+		output.className = "picture_talk";// btn-info";
+		// output.setAttribute("data-toggle","modal");
+		// output.setAttribute("data-target","#myModal");
+		if (list[i].childNodes.length == 2) //prevent from append more than one time
+			list[i].appendChild(output);
+	}
+
+
+	input = document.getElementsByClassName("picture_talk");
+	for (var i = input.length - 1; i >= 0; i--) {
+		input[i].onclick = check;
+	}
 }
 
+var interval = setInterval(addButton, 500);
 
-function search()
-{
-  var tag = document.getElementById("input").value;
-  console.log(tag);
-  // console.log(cur_place.children[0].children[1].children[0].children[0].children[1].children[0].children[0].children[0].children[0].children[0].innerHTML);
-  var sep=cur_place.children[0].children[1].children[0].children[0];
-  //sep.children[0].className="_1p1t _1p1u";
-  sep.removeChild(sep.children[0]);
-  console.log(sep);
-  sep.children[0].children[0].removeAttribute("aria-describedby");
-    sep.children[0].children[0].children[0].children[0].children[0].children[0].innerHTML
-    ="<span data-text=\"true\">"+123+"</span>";
+function search() {
+	$(".pic_list")[0].innerHTML = "";
+	var tag = document.getElementById("input").value;
+	console.log(tag);
 
-var jsontree = null;
-$.ajax({
-    url: "https://coldegarage.tech/~demo1/curl.php",
-    type: "GET",
-    data:{
-      "tag":tag
-    },
-    dataType: 'JSON',
-    success: function(result){
-        jsontree = result;
-        display(jsontree);
-    },
-    error:function(){
-        alert('fail');
-    }
-});
+	var jsontree = null;
+	if(clipboard!=null)
+		delete clipboard;
+	$.ajax({
+		url: "https://coldegarage.tech/~demo1/curl.php",
+		type: "GET",
+		data: {
+			"tag": tag
+		},
+		dataType: 'JSON',
+		success: function(result) {
+			jsontree = result;
+			display(jsontree);
+		},
+		error: function() {
+			alert('fail');
+		}
+	});
 
 
 }
 
-function display(jsontree)
-{
-  if(jsontree!=null)
-{
-  var json = jsontree = JSON.stringify(jsontree);
-  var obj = jQuery.parseJSON(json);
-  var images = obj["images"];
-  var keyword = obj["keyword"];
+function display(jsontree) {
+	if (jsontree != null) {
+		var json = jsontree = JSON.stringify(jsontree);
+		var obj = jQuery.parseJSON(json);
+		var images = obj["images"];
+		var keyword = obj["keyword"];
 
-  var list = document.getElementById("list");
-  
-  for(var i =0; i < images.length; i++)
-  {
-  var img = document.createElement('img');
-  img.className = "img-rounded";
-  img.src = images[i]["src"];
-  $(".image_box").append(img);
-  }
-  
-}else
-  alert("No result");
+		var list = document.getElementById("list");
+
+		for (var i = 0; i < images.length; i++) {
+			var img = document.createElement('img');
+			img.className = "img-rounded";
+			img.src = images[i]["src"];
+			img.setAttribute("data-clipboard-text",images[i]["src"]);
+			img.onclick=check;
+			$(".pic_list").append(img);
+		}
+		if(clipboard==null)
+			clipboard = new Clipboard(".img-rounded");
+	// clipboard.on('success', function(e) {
+	//     console.info('Action:', e.action);
+	//     console.info('Text:', e.text);
+	//     console.info('Trigger:', e.trigger);
+
+	//     e.clearSelection();
+
+	// });
+
+	// clipboard.on('error', function(e) {
+	//     console.error('Action:', e.action);
+	//     console.error('Trigger:', e.trigger);
+	// });
+
+	} else
+		alert("No result");
 
 }
 
